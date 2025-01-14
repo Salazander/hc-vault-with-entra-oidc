@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  vault-client:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+
+    volumes:
+      # Update this to wherever you want VS Code to mount the folder of your project
+      - ../..:/workspaces:cached
+
+    # Overrides default command to keep container running
+    command: sleep infinity
+
+    environment:
+      VAULT_ADDR: "http://vault-server:8200"
+      VAULT_TOKEN: "root"
+
+  vault-server:
+    image: hashicorp/vault:1.18
+    container_name: vault-server
+    ports:
+      - "8200:8200"
+    environment:
+      VAULT_DEV_ROOT_TOKEN_ID: "root"
+      VAULT_LOG_LEVEL: "debug"
