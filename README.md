@@ -2,7 +2,7 @@
 This repository showcases the integration of HashiCorp Vault with MS Entra ID using the OIDC authentication method. The solution maps all authenticated users to a single Vault Entity and Alias, distinguishing their access rights by attaching specific access policies to different Vault Roles. Access to these roles is authorized by validating the group membership claims.
 
 ## Prerequisites
-- Docker Desktop
+- Docker + VSCode running locally
 - Azure Subscription
 - Permission to register applications in your MS Entra Tenant ID
 
@@ -51,6 +51,7 @@ vault kv put secret/test message="Hello World"
 ## How to clean up
 To remove all created resources, use
 ```sh
+export VAULT_TOKEN=root
 cd terraform
 terraform destroy -var-file="variables.tfvars"
 ```
